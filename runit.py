@@ -56,6 +56,10 @@ def main():
     try:
         from generate_geojson import generate_geojson
         generate_geojson()
+    except ImportError as e:
+        print(f"Import error: {e}")
+        print("Make sure generate_geojson.py is in the current directory")
+        sys.exit(1)
     except Exception as e:
         print(f"Error generating GeoJSON: {e}")
         traceback.print_exc()
@@ -73,6 +77,10 @@ def main():
         print_summary()
         print("\n=== Publishing to ArcGIS ===")
         create_feature_layer_with_arcgis_api()
+    except ImportError as e:
+        print(f"Import error: {e}")
+        print("Make sure create_arcgis_layer.py is in the current directory")
+        sys.exit(1)
     except Exception as e:
         print(f"Error creating ArcGIS Feature Collection: {e}")
         traceback.print_exc()
