@@ -8,7 +8,7 @@ This script executes the data generation pipeline:
 """
 
 import sys
-import os
+import traceback
 from pathlib import Path
 
 
@@ -58,6 +58,7 @@ def main():
         generate_geojson()
     except Exception as e:
         print(f"Error generating GeoJSON: {e}")
+        traceback.print_exc()
         sys.exit(1)
     
     # Step 2: Create ArcGIS Feature Collection
@@ -70,6 +71,7 @@ def main():
         create_feature_layer_with_arcgis_api()
     except Exception as e:
         print(f"Error creating ArcGIS Feature Collection: {e}")
+        traceback.print_exc()
         sys.exit(1)
     
     # Summary
