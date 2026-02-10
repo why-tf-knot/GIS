@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""
+Run all GIS data generation scripts.
+
+This script executes the data generation pipeline:
+1. Generate GeoJSON from CSV
+2. Create ArcGIS Feature Collection
+
+Usage:
+    ./runit
+    python3 runit
+"""
+
+import sys
+import os
+from pathlib import Path
+
+
+def print_header(title: str):
+    """Print a formatted header."""
+    print("\n" + "=" * 60)
+    print(f"   {title}")
+    print("=" * 60 + "\n")
+
+
+def print_step(step_num: int, description: str):
+    """Print a formatted step header."""
+    print(f"\nStep {step_num}: {description}")
+    print("-" * 60)
+
+
+def check_prerequisites():
+    """Check if required files exist."""
+    required_files = ['locations.csv', 'generate_geojson.py', 'create_arcgis_layer.py']
+    missing_files = []
+    
+    for filename in required_files:
+        if not Path(filename).exists():
+            missing_files.append(filename)
+    
+    if missing_files:
+        print("Error: Missing required files:")
+        for filename in missing_files:
+            print(f"  - {filename}")
+        return False
+    
+    return True
+
+
+def main():
+    """Execute the data generation pipeline."""
+    print_header("GIS Data Generation Pipeline")
+    
+    # Check prerequisites
+    if not check_prerequisites():
+        sys.exit(1)
+    
+    # Step 1: Generate GeoJSON
+    print_step(1, "Generating GeoJSON from CSV")
+    try:
+        from generate_geojson import generate_geojson
+        generate_geojson()
+    except Exception as e:
+        print(f"Error generating GeoJSON: {e}")
+        sys.exit(1)
+    
+    # Step 2: Create ArcGIS Feature Collection
+    print_step(2, "Creating ArcGIS Feature Collection")
+    try:
+        from create_arcgis_layer import save_feature_collection, print_summary, create_feature_layer_with_arcgis_api
+        save_feature_collection()
+        print_summary()
+        print("\n=== Publishing to ArcGIS ===")
+        create_feature_layer_with_arcgis_api()
+    except Exception as e:
+        print(f"Error creating ArcGIS Feature Collection: {e}")
+        sys.exit(1)
+    
+    # Summary
+    print_header("Pipeline Complete!")
+    print("Generated files:")
+    print("  ✓ space_agencies.geojson")
+    print("  ✓ space_agencies_feature_collection.json")
+    print("\nTo view the interactive map, open map.html in a web browser")
+    print()
+
+
+if __name__ == '__main__':
+    main()

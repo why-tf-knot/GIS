@@ -56,6 +56,26 @@ Simply open `map.html` in a web browser to view an interactive map with all loca
 
 ## 🔧 Scripts
 
+### Quick Start - Run All Scripts
+
+The easiest way to generate all data files is to use the `runit` script:
+
+```bash
+./runit
+```
+
+Or alternatively:
+
+```bash
+bash runit.sh    # Shell script
+python3 runit.py # Python script
+```
+
+This will execute the entire data generation pipeline:
+1. Generate GeoJSON from CSV
+2. Create ArcGIS Feature Collection
+3. Display summary of all locations
+
 ### Generate GeoJSON from CSV
 
 ```bash
