@@ -1,0 +1,129 @@
+{
+  "layers": [
+    {
+      "layerDefinition": {
+        "name": "Space Agency Locations",
+        "geometryType": "esriGeometryPoint",
+        "objectIdField": "OBJECTID",
+        "fields": [
+          {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "OBJECTID"
+          },
+          {
+            "name": "organization",
+            "type": "esriFieldTypeString",
+            "alias": "Organization",
+            "length": 50
+          },
+          {
+            "name": "location",
+            "type": "esriFieldTypeString",
+            "alias": "Location",
+            "length": 100
+          },
+          {
+            "name": "address",
+            "type": "esriFieldTypeString",
+            "alias": "Address",
+            "length": 200
+          },
+          {
+            "name": "city",
+            "type": "esriFieldTypeString",
+            "alias": "City",
+            "length": 100
+          },
+          {
+            "name": "country",
+            "type": "esriFieldTypeString",
+            "alias": "Country",
+            "length": 100
+          }
+        ],
+        "spatialReference": {
+          "wkid": 4326
+        }
+      },
+      "featureSet": {
+        "geometryType": "esriGeometryPoint",
+        "spatialReference": {
+          "wkid": 4326
+        },
+        "features": [
+          {
+            "attributes": {
+              "OBJECTID": 1,
+              "organization": "ESA",
+              "location": "Headquarters",
+              "address": "8-10 rue Mario Nikis",
+              "city": "Paris",
+              "country": "France"
+            },
+            "geometry": {
+              "x": 2.3043934,
+              "y": 48.8481719
+            }
+          },
+          {
+            "attributes": {
+              "OBJECTID": 2,
+              "organization": "ESA",
+              "location": "ESTEC (Tech Centre)",
+              "address": "Keplerlaan 1",
+              "city": "Noordwijk",
+              "country": "Netherlands"
+            },
+            "geometry": {
+              "x": 4.4203697,
+              "y": 52.2209241
+            }
+          },
+          {
+            "attributes": {
+              "OBJECTID": 3,
+              "organization": "ESA",
+              "location": "ESOC (Operations)",
+              "address": "Robert-Bosch-Strasse 5",
+              "city": "Darmstadt",
+              "country": "Germany"
+            },
+            "geometry": {
+              "x": 8.6255756,
+              "y": 49.8711737
+            }
+          },
+          {
+            "attributes": {
+              "OBJECTID": 4,
+              "organization": "CNES",
+              "location": "Headquarters",
+              "address": "2 Place Maurice Quentin",
+              "city": "Paris",
+              "country": "France"
+            },
+            "geometry": {
+              "x": 2.3453532,
+              "y": 48.8612924
+            }
+          },
+          {
+            "attributes": {
+              "OBJECTID": 5,
+              "organization": "DLR",
+              "location": "Headquarters",
+              "address": "Linder H\u00f6he",
+              "city": "K\u00f6ln",
+              "country": "Germany"
+            },
+            "geometry": {
+              "x": 7.1111321,
+              "y": 50.8500937
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

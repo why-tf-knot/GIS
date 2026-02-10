@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>European Space Agencies Map</title>
+    
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            max-width: 300px;
+            z-index: 1;
+        }
+        
+        #info h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        #info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.28/"></script>
+    
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/GeoJSONLayer",
+            "esri/widgets/Legend",
+            "esri/widgets/Expand"
+        ], function(Map, MapView, GeoJSONLayer, Legend, Expand) {
+            
+            // GeoJSON data embedded directly
+            const geojsonData = {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [2.3043934, 48.8481719]
+                        },
+                        "properties": {
+                            "organization": "ESA",
+                            "location": "Headquarters",
+                            "address": "8-10 rue Mario Nikis",
+                            "postal_code": "75015",
+                            "city": "Paris",
+                            "country": "France",
+                            "name": "ESA - Headquarters"
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [4.4203697, 52.2209241]
+                        },
+                        "properties": {
+                            "organization": "ESA",
+                            "location": "ESTEC (Tech Centre)",
+                            "address": "Keplerlaan 1",
+                            "postal_code": "2201 AZ",
+                            "city": "Noordwijk",
+                            "country": "Netherlands",
+                            "name": "ESA - ESTEC (Tech Centre)"
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [8.6255756, 49.8711737]
+                        },
+                        "properties": {
+                            "organization": "ESA",
+                            "location": "ESOC (Operations)",
+                            "address": "Robert-Bosch-Strasse 5",
+                            "postal_code": "64293",
+                            "city": "Darmstadt",
+                            "country": "Germany",
+                            "name": "ESA - ESOC (Operations)"
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [2.3453532, 48.8612924]
+                        },
+                        "properties": {
+                            "organization": "CNES",
+                            "location": "Headquarters",
+                            "address": "2 Place Maurice Quentin",
+                            "postal_code": "75001",
+                            "city": "Paris",
+                            "country": "France",
+                            "name": "CNES - Headquarters"
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [7.1111321, 50.8500937]
+                        },
+                        "properties": {
+                            "organization": "DLR",
+                            "location": "Headquarters",
+                            "address": "Linder Höhe",
+                            "postal_code": "51147",
+                            "city": "Köln",
+                            "country": "Germany",
+                            "name": "DLR - Headquarters"
+                        }
+                    }
+                ]
+            };
+            
+            // Create Blob from GeoJSON data
+            const blob = new Blob([JSON.stringify(geojsonData)], {
+                type: "application/json"
+            });
+            const url = URL.createObjectURL(blob);
+            
+            // Define popup template
+            const template = {
+                title: "{name}",
+                content: [
+                    {
+                        type: "fields",
+                        fieldInfos: [
+                            {
+                                fieldName: "organization",
+                                label: "Organization"
+                            },
+                            {
+                                fieldName: "location",
+                                label: "Location"
+                            },
+                            {
+                                fieldName: "address",
+                                label: "Address"
+                            },
+                            {
+                                fieldName: "city",
+                                label: "City"
+                            },
+                            {
+                                fieldName: "country",
+                                label: "Country"
+                            }
+                        ]
+                    }
+                ]
+            };
+            
+            // Define renderer with different colors for each organization
+            const renderer = {
+                type: "unique-value",
+                field: "organization",
+                uniqueValueInfos: [
+                    {
+                        value: "ESA",
+                        symbol: {
+                            type: "simple-marker",
+                            color: [0, 112, 192],
+                            size: 12,
+                            outline: {
+                                color: [255, 255, 255],
+                                width: 2
+                            }
+                        },
+                        label: "ESA (European Space Agency)"
+                    },
+                    {
+                        value: "CNES",
+                        symbol: {
+                            type: "simple-marker",
+                            color: [255, 0, 0],
+                            size: 12,
+                            outline: {
+                                color: [255, 255, 255],
+                                width: 2
+                            }
+                        },
+                        label: "CNES (French Space Agency)"
+                    },
+                    {
+                        value: "DLR",
+                        symbol: {
+                            type: "simple-marker",
+                            color: [0, 176, 80],
+                            size: 12,
+                            outline: {
+                                color: [255, 255, 255],
+                                width: 2
+                            }
+                        },
+                        label: "DLR (German Aerospace Center)"
+                    }
+                ]
+            };
+            
+            // Create GeoJSON layer
+            const geojsonLayer = new GeoJSONLayer({
+                url: url,
+                popupTemplate: template,
+                renderer: renderer,
+                title: "Space Agency Locations"
+            });
+            
+            // Create map
+            const map = new Map({
+                basemap: "streets-navigation-vector",
+                layers: [geojsonLayer]
+            });
+            
+            // Create map view centered on Europe
+            const view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [6, 50],
+                zoom: 5
+            });
+            
+            // Add legend
+            const legend = new Legend({
+                view: view,
+                layerInfos: [{
+                    layer: geojsonLayer,
+                    title: "Space Agencies"
+                }]
+            });
+            
+            const legendExpand = new Expand({
+                view: view,
+                content: legend,
+                expanded: true
+            });
+            
+            view.ui.add(legendExpand, "bottom-left");
+            
+            // Update info panel when features are clicked
+            view.on("click", function(event) {
+                view.hitTest(event).then(function(response) {
+                    if (response.results.length) {
+                        const graphic = response.results[0].graphic;
+                        const attrs = graphic.attributes;
+                        
+                        document.getElementById("org-name").textContent = attrs.name;
+                        document.getElementById("org-address").textContent = 
+                            attrs.address + ", " + attrs.postal_code + " " + attrs.city;
+                        document.getElementById("org-country").textContent = attrs.country;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="viewDiv"></div>
+    <div id="info">
+        <h3>European Space Agencies</h3>
+        <p>Click on a marker to see details</p>
+        <hr>
+        <p><strong id="org-name"></strong></p>
+        <p id="org-address"></p>
+        <p id="org-country"></p>
+    </div>
+</body>
+</html>
