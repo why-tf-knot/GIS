@@ -1,0 +1,100 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3043934,
+          48.8481719
+        ]
+      },
+      "properties": {
+        "organization": "ESA",
+        "location": "Headquarters",
+        "address": "8-10 rue Mario Nikis",
+        "postal_code": "75015",
+        "city": "Paris",
+        "country": "France",
+        "name": "ESA - Headquarters"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4203697,
+          52.2209241
+        ]
+      },
+      "properties": {
+        "organization": "ESA",
+        "location": "ESTEC (Tech Centre)",
+        "address": "Keplerlaan 1",
+        "postal_code": "2201 AZ",
+        "city": "Noordwijk",
+        "country": "Netherlands",
+        "name": "ESA - ESTEC (Tech Centre)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.6255756,
+          49.8711737
+        ]
+      },
+      "properties": {
+        "organization": "ESA",
+        "location": "ESOC (Operations)",
+        "address": "Robert-Bosch-Strasse 5",
+        "postal_code": "64293",
+        "city": "Darmstadt",
+        "country": "Germany",
+        "name": "ESA - ESOC (Operations)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3453532,
+          48.8612924
+        ]
+      },
+      "properties": {
+        "organization": "CNES",
+        "location": "Headquarters",
+        "address": "2 Place Maurice Quentin",
+        "postal_code": "75001",
+        "city": "Paris",
+        "country": "France",
+        "name": "CNES - Headquarters"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.1111321,
+          50.8500937
+        ]
+      },
+      "properties": {
+        "organization": "DLR",
+        "location": "Headquarters",
+        "address": "Linder H\u00f6he",
+        "postal_code": "51147",
+        "city": "K\u00f6ln",
+        "country": "Germany",
+        "name": "DLR - Headquarters"
+      }
+    }
+  ]
+}
