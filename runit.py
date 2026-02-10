@@ -64,7 +64,11 @@ def main():
     # Step 2: Create ArcGIS Feature Collection
     print_step(2, "Creating ArcGIS Feature Collection")
     try:
-        from create_arcgis_layer import save_feature_collection, print_summary, create_feature_layer_with_arcgis_api
+        from create_arcgis_layer import (
+            save_feature_collection,
+            print_summary,
+            create_feature_layer_with_arcgis_api
+        )
         save_feature_collection()
         print_summary()
         print("\n=== Publishing to ArcGIS ===")
